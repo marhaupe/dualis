@@ -1,0 +1,24 @@
+before:
+  hooks:
+  - make clean
+builds:
+  -
+    main: ./main.go
+    binary: dualis
+    goos:
+      - darwin
+      - linux
+      - windows
+archives:
+- replacements:
+    darwin: MacOS
+    linux: Linux
+    windows: Windows
+checksum:
+  name_template: 'checksums.txt'
+changelog:
+  sort: asc
+  filters:
+    exclude:
+    - '^docs:'
+    - '^test:'
