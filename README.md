@@ -1,4 +1,6 @@
-Simple hack to check your grades.
+# Dualis
+
+Simple hack to check your grades on https://dualis.dhbw.de. Starts a headless browser and takes a screenshot in a matter of seconds.
 
 # Installation
 
@@ -10,6 +12,6 @@ tar -C /usr/local/bin -xzf <archive>
 
 # Usage
 
-´´´bash
+```bash
 dualis -u <max.mustermann@dh-karlsruhe.de> -p <password>
-´´´
+```
