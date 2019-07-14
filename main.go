@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"context"
 	"flag"
 	"fmt"
@@ -15,19 +16,47 @@ import (
 var (
 	password string
 	username string
+
+	filename = "grades.png"
 )
 
 func init() {
 	flag.StringVar(&password, "p", "", "password")
 	flag.StringVar(&username, "u", "", "username")
 	flag.Parse()
-	if password == "" || username == "" {
-		fmt.Println("Please supply both -u (username) and -p (password)")
-		os.Exit(1)
-	}
 }
 
 func main() {
+	if password == "" || username == "" {
+		reader := bufio.NewReader(os.Stdin)
+
+		fmt.Print("Username: ")
+		username, _ = reader.ReadString('\n')
+		username = username[:len(username)-1]
+
+		fmt.Print("Password: ")
+		password, _ = reader.ReadString('\n')
+		password = password[:len(password)-1]
+	}
+
+	result, err := generateScreenshot()
+	if err != nil {
+		fmt.Println("error while taking screenshot of your grades", err)
+	}
+
+	err = ioutil.WriteFile(filename, []byte(result), 0644)
+	if err != nil {
+		fmt.Println("error while saving screenshot of your grades", err)
+		os.Exit(2)
+	}
+
+	open.Run(filename)
+
+	time.Sleep(time.Second * 4)
+	os.Remove(filename)
+}
+
+func generateScreenshot() ([]byte, error) {
 	opts := append(chromedp.DefaultExecAllocatorOptions[:],
 		chromedp.Flag("headless", true),
 	)
@@ -49,18 +78,7 @@ func main() {
 		chromedp.WaitReady("#contentSpacer_IE > div > table", chromedp.ByQuery),
 		chromedp.Screenshot("#contentSpacer_IE > div > table", &result, chromedp.ByQuery),
 	); err != nil {
-		panic(err)
+		return nil, err
 	}
-
-	err := ioutil.WriteFile("grades.png", []byte(result), 0644)
-	if err != nil {
-		fmt.Println("Error while saving screenshot of your grades")
-		os.Exit(2)
-	}
-
-	fmt.Println("Saved screenshot of your grades")
-	open.Run("grades.png")
-
-	time.Sleep(time.Second * 4)
-	os.Remove("grades.png")
+	return result, nil
 }
