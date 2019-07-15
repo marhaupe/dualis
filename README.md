@@ -18,8 +18,11 @@ If it's in your `$PATH`:
 ```bash
 dualis -u <max.mustermann@dh-karlsruhe.de> -p <password>
 ```
+or just run `dualis` and input the data that is prompted.
+
 
 If it's not in the your `$PATH`, but you're in the same folder the binary is saved:
 ```bash
 ./dualis -u <max.mustermann@dh-karlsruhe.de> -p <password>
 ```
+or just run `./dualis` and input the data that is prompted.
