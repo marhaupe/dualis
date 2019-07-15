@@ -2,6 +2,10 @@
 
 Simple hack to check your grades on https://dualis.dhbw.de. Starts a headless browser and takes a screenshot in a matter of seconds.
 
+# Dependencies
+
+Since this starts a headless chrome instance, you need to have chrome installed.
+
 # Installation
 
 Download the [archive](https://github.com/marhaupe/dualis/releases) and extract it somewhere your `$PATH` is set to, for example to `/usr/local/bin`:
