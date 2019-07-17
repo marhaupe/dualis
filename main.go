@@ -70,11 +70,18 @@ func generateScreenshot() ([]byte, error) {
 	var result []byte
 	if err := chromedp.Run(taskCtx,
 		chromedp.Navigate("https://dualis.dhbw.de/scripts/mgrqispi.dll?APPNAME=CampusNet&PRGNAME=EXTERNALPAGES&ARGUMENTS=-N139906720206530,-N000307,"),
+
+		// Login
+		chromedp.WaitReady("#field_user", chromedp.ByQuery),
 		chromedp.SendKeys("#field_user", username),
 		chromedp.SendKeys("#field_pass", password),
 		chromedp.Click("#logIn_btn", chromedp.ByID),
+
+		// Press `Prüfungsergebnisse`
 		chromedp.WaitReady("#link000307 > a", chromedp.ByQuery),
 		chromedp.Click("#link000307 > a", chromedp.ByQuery),
+
+		// Screenshot table
 		chromedp.WaitReady("#contentSpacer_IE > div > table", chromedp.ByQuery),
 		chromedp.Screenshot("#contentSpacer_IE > div > table", &result, chromedp.ByQuery),
 	); err != nil {
