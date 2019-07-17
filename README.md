@@ -8,6 +8,12 @@ Since this starts a headless chrome instance, you need to have chrome installed.
 
 # Installation
 
+## If you have Go installed
+
+`go get https://github.com/marhaupe/dualis`
+
+## If you don't have Go installed
+
 Download the [archive](https://github.com/marhaupe/dualis/releases) and extract it somewhere your `$PATH` is set to, for example to `/usr/local/bin`:
 
 ```bash
