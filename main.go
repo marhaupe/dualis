@@ -41,12 +41,13 @@ func main() {
 
 	result, err := generateScreenshot()
 	if err != nil {
-		fmt.Println("error while taking screenshot of your grades", err)
+		fmt.Println("error while taking screenshot of your grades: ", err)
+		os.Exit(1)
 	}
 
 	err = ioutil.WriteFile(filename, []byte(result), 0644)
 	if err != nil {
-		fmt.Println("error while saving screenshot of your grades", err)
+		fmt.Println("error while saving screenshot of your grades: ", err)
 		os.Exit(2)
 	}
 
